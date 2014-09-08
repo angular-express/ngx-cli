@@ -1,0 +1,43 @@
+{
+  "name": "ngx-cli",
+  "version": "0.1.0",
+  "description": "Angular Express CLI",
+  "author": "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "express",
+    "harp",
+    "harpjs",
+    "boilerplate",
+    "sass",
+    "less",
+    "stylus",
+    "markdown",
+    "jade",
+    "ejs",
+    "coffeescript"
+  ],
+  "homepage": "http://angular-express.com",
+  "bugs": "http://github.com/angular-express/ngx-cli/issues",
+  "main": "./bin/ngx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angular-express/ngx-cli.git"
+  },
+  "dependencies": {
+    "commander": "^2.3.0",
+    "download-github-repo": "^0.1.3",
+    "fs-extra": "^0.11.1",
+    "harp": "^0.13.0"
+  },
+  "license": "MIT",
+  "preferGlobal": true,
+  "readmeFilename": "README.md",
+  "bin": {
+    "ngx": "./bin/ngx"
+  },
+  "engines": {
+    "node": ">=0.10"
+  }
+}

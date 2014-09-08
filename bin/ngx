@@ -1,0 +1,110 @@
+#!/usr/bin/env node
+
+var nodePath = require("path"),
+  program = require("commander"),
+  fse = require("fs-extra"),
+  downloadRepo = require("download-github-repo"),
+  pkg = require("../package.json");
+
+program
+  .version(pkg.version);
+
+program
+  .command("init [path]")
+  .usage("initializes a new Angular Express project in the current directory.\n  See available boilerplates at https://github.com/ngx-boilerplates")
+  .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "ngx-boilerplates/default")
+  .description("Initialize a new Angular Express project in current directory")
+  .action(function (path, program) {
+    var projectPath = nodePath.resolve(process.cwd(), path || ""),
+      repo = program.boilerplate;
+
+    // Assume `ngx-boilerplates` github org if boilerplate doesn't contain a slash
+    repo.match(/\//) || (repo = "ngx-boilerplates/" + repo);
+
+    var done = function () {
+      console.log("Initialized project at", projectPath)
+    }
+
+    fse.mkdirp(projectPath, function (err) {
+      if (err) return err
+
+      fse.readdir(projectPath, function (err, contents) {
+        if (err) return err
+
+        if (contents.length !== 0) {
+          console.log("Sorry,", projectPath, "must be empty.");
+          return
+        }
+
+        console.log("Downloading boilerplate: https://github.com/" + repo);
+
+        downloadRepo(repo, projectPath, function (err) {
+
+          if (!err) return done()
+
+          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
+            return console.error("You're not connected to the Internet :-(");
+          } else {
+            return console.error("Boilerplate not found:", "https://github.com/" + repo);
+          }
+
+        });
+
+      });
+    });
+  });
+
+program
+  .command("install <component> [path]")
+  .usage("initializes a new Angular Express component in the current directory.\n  See available components at https://github.com/ngx-components")
+  .description("Initialize a new Angular Express project in current directory")
+  .action(function (component, path, program) {
+    var componentPath = nodePath.resolve(process.cwd(), path || "public/components"),
+      repo = component;
+
+    // Assume `ngx-boilerplates` github org if boilerplate doesn't contain a slash
+    repo.match(/\//) || (repo = "ngx-components/" + repo);
+
+    var done = function () {
+      console.log("Initialized component at", componentPath)
+    }
+
+    fse.mkdirp(componentPath, function (err) {
+      if (err) return err
+
+      fse.readdir(componentPath, function (err, contents) {
+        if (err) return err
+
+        if (contents.length !== 0) {
+          console.log("Sorry,", componentPath, "must be empty.");
+          return
+        }
+
+        console.log("Downloading boilerplate: https://github.com/" + repo);
+
+        downloadRepo(repo, componentPath, function (err) {
+
+          if (!err) return done()
+
+          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
+            return console.error("You're not connected to the Internet :-(");
+          } else {
+            return console.error("Component not found:", "https://github.com/" + repo);
+          }
+
+        });
+
+      });
+    });
+  });
+
+program.on("--help", function () {
+  console.log("  Use 'ngx <command> --help' to get more information or visit http://angular-express.com/ to learn more.")
+  console.log('')
+});
+
+program.parse(process.argv)
+
+if (program.args.length < 1) {
+  program.help()
+}
