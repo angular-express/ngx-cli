@@ -1,4 +1,4 @@
-![AngularJS Express](http://i.imgur.com/yJmZbQe.png)
+![AngularJS Express](http://i.imgur.com/nTj9QgN.png)
 
 ## Quick Start
 
