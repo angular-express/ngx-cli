@@ -1,52 +1,87 @@
 #!/usr/bin/env node
 
-var nodePath = require("path"),
-  program = require("commander"),
-  fse = require("fs-extra"),
-  downloadRepo = require("download-github-repo"),
-  pkg = require("../package.json");
+// Requires
+var nodePath = require("path");
+var program = require("commander");
+var fse = require("fs-extra");
+var downloadRepo = require("download-github-repo");
+var util = require("util");
+
+
+// Read package.json
+var pkg = require("../package.json");
+
+// Define temporary path
+var tmpPath = nodePath.resolve(process.cwd(), ".ngx-boilerplates");
+
 
 program
   .version(pkg.version);
 
+
+/**
+ * Init command
+ *
+ * Initialize a new project boilerplate
+ */
 program
   .command("init [path]")
-  .usage("initializes a new Angular Express project in the current directory.\n  See available boilerplates at https://github.com/ngx-boilerplates")
+  .usage("initializes a new Angular Express project in path(default path: current directory).\n  See available boilerplates at https://github.com/ngx-boilerplates")
   .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "ngx-boilerplates/default")
-  .description("Initialize a new Angular Express project in current directory")
+  .option("-f, --force", "overwrite existing file(s)")
+  .description("Initialize a new Angular Express project in path (default path: current directory)")
   .action(function (path, program) {
-    var projectPath = nodePath.resolve(process.cwd(), path || ""),
-      repo = program.boilerplate;
 
-    // Assume `ngx-boilerplates` github org if boilerplate doesn't contain a slash
+    var projectPath = nodePath.resolve(process.cwd(), path || "");
+    var repo = program.boilerplate;
+
+    removeTmpDirectory();
+
+    // Prefix repo with 'ngx-boilerplates/' if it has no slash
     repo.match(/\//) || (repo = "ngx-boilerplates/" + repo);
 
     var done = function () {
+      cleanUp();
       console.log("Initialized project at", projectPath)
     }
 
     fse.mkdirp(projectPath, function (err) {
-      if (err) return err
+
+      if (err) abort(err);
 
       fse.readdir(projectPath, function (err, contents) {
-        if (err) return err
 
-        if (contents.length !== 0) {
-          console.log("Sorry,", projectPath, "must be empty.");
-          return
+        if (err) abort(err);
+
+        if ((contents.length !== 0) && (!program.force)) {
+          console.log("Aborted for safety reasons: ");
+          console.log(projectPath + " does not seem to be empty.");
+          console.log('Use --force to overwrite existing file(s)');
+          abort();
         }
 
         console.log("Downloading boilerplate: https://github.com/" + repo);
 
-        downloadRepo(repo, projectPath, function (err) {
+        downloadRepo(repo, tmpPath, function (err) {
 
-          if (!err) return done()
-
-          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
-            return console.error("You're not connected to the Internet :-(");
-          } else {
-            return console.error("Boilerplate not found:", "https://github.com/" + repo);
+          if (err) {
+            if (util.isError(err) && err['code'] === 'ENOTFOUND') {
+              abort("You're not connected to the Internet :-(");
+            } else {
+              abort("Boilerplate not found: https://github.com/" + repo);
+            }
           }
+
+          fse.copy(nodePath.resolve(tmpPath, "ngx"), projectPath, function (err) {
+            if (err) {
+              if (util.isError(err) && err['code'] === 'ENOENT') {
+                abort("The boilerplate does not seem to contain an 'ngx' directory. This problem is caused by the boilerplate maintainer. Please contact the maintainer to have the issue fixed.");
+              } else {
+                abort("Boilerplate not found: https://github.com/" + repo + " (" + err + ")");
+              }
+            }
+            return done()
+          });
 
         });
 
@@ -54,19 +89,28 @@ program
     });
   });
 
+/**
+ * Install command
+ *
+ * Install a new component
+ */
 program
   .command("install <component> [path]")
-  .usage("initializes a new Angular Express component in the current directory.\n  See available components at https://github.com/ngx-components")
-  .description("Initialize a new Angular Express project in current directory")
+  .usage("initializes a new Angular Express component in path (default path: public/components).\n  See available components at https://github.com/ngx-components")
+  .description("Initialize a new Angular Express project in path (default path: public/components)")
   .action(function (component, path, program) {
-    var componentPath = nodePath.resolve(process.cwd(), path || "public/components"),
-      repo = component;
 
-    // Assume `ngx-boilerplates` github org if boilerplate doesn't contain a slash
+    var componentPath = nodePath.resolve(process.cwd(), path || "public/components");
+    var repo = component;
+
+    cleanUp();
+
+    // Prefix repo with 'ngx-components/' if it has no slash
     repo.match(/\//) || (repo = "ngx-components/" + repo);
 
     var done = function () {
-      console.log("Initialized component at", componentPath)
+      cleanUp();
+      console.log("Installed component at", componentPath)
     }
 
     fse.mkdirp(componentPath, function (err) {
@@ -75,22 +119,35 @@ program
       fse.readdir(componentPath, function (err, contents) {
         if (err) return err
 
-        if (contents.length !== 0) {
-          console.log("Sorry,", componentPath, "must be empty.");
-          return
+        if ((contents.length !== 0) && (!program.force)) {
+          console.log("Aborted for safety reasons: ");
+          console.log(componentPath + " does not seem to be empty.");
+          console.log('Use --force to overwrite existing file(s)');
+          abort();
         }
 
-        console.log("Downloading boilerplate: https://github.com/" + repo);
+        console.log("Downloading component: https://github.com/" + repo);
 
-        downloadRepo(repo, componentPath, function (err) {
+        downloadRepo(repo, tmpPath, function (err) {
 
-          if (!err) return done()
-
-          if (require('util').isError(err) && err['code'] === 'ENOTFOUND') {
-            return console.error("You're not connected to the Internet :-(");
-          } else {
-            return console.error("Component not found:", "https://github.com/" + repo);
+          if (err) {
+            if (util.isError(err) && err['code'] === 'ENOTFOUND') {
+              abort("You're not connected to the Internet :-(");
+            } else {
+              abort("Component not found: https://github.com/" + repo);
+            }
           }
+
+          fse.copy(nodePath.resolve(tmpPath, "ngx"), componentPath, function (err) {
+            if (err) {
+              if (util.isError(err) && err['code'] === 'ENOENT') {
+                abort("The component does not seem to contain an 'ngx' directory. This problem is caused by the component maintainer. Please contact the maintainer to have the issue fixed.");
+              } else {
+                abort("Component not found: https://github.com/" + repo + " (" + err + ")");
+              }
+            }
+            return done()
+          });
 
         });
 
@@ -98,6 +155,9 @@ program
     });
   });
 
+/**
+ * Help text
+ */
 program.on("--help", function () {
   console.log("  Use 'ngx <command> --help' to get more information or visit http://angular-express.com/ to learn more.")
   console.log('')
@@ -107,4 +167,35 @@ program.parse(process.argv)
 
 if (program.args.length < 1) {
   program.help()
+}
+
+/**
+ * Clean up
+ */
+function cleanUp() {
+  removeTmpDirectory();
+}
+
+
+/**
+ * Remove the temporary directory
+ */
+function removeTmpDirectory() {
+  fse.removeSync(tmpPath);
+}
+
+/**
+ * Exit with the given error.
+ *
+ * @param {String|Error} error
+ */
+
+function abort(err) {
+  cleanUp();
+  if (util.isError(err)) {
+    console.error(err.message);
+  } else if (err) {
+    console.error(err);
+  }
+  process.exit(1);
 }
