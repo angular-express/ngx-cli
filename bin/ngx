@@ -97,6 +97,7 @@ program
 program
   .command("install <component> [path]")
   .usage("initializes a new Angular Express component in path (default path: public/components).\n  See available components at https://github.com/ngx-components")
+  .option("-f, --force", "overwrite existing file(s)")
   .description("Initialize a new Angular Express project in path (default path: public/components)")
   .action(function (component, path, program) {
 
