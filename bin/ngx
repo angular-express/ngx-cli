@@ -100,13 +100,20 @@ program
   .description("Initialize a new Angular Express project in path (default path: public/components)")
   .action(function (component, path, program) {
 
-    var componentPath = nodePath.resolve(process.cwd(), path || ("public/components/" + component));
-    var repo = component;
+    var componentPath,
+        repo = component;
 
     cleanUp();
 
     // Prefix repo with 'ngx-components/' if it has no slash
     repo.match(/\//) || (repo = "ngx-components/" + repo);
+
+    if(path){
+      componentPath = nodePath.resolve(process.cwd(), "public/components/", path);
+    }else{
+      var repoParts = repo.split('/');
+      componentPath = nodePath.resolve(process.cwd(), "public/components/", repoParts[repoParts.length -1]);
+    }
 
     var done = function () {
       cleanUp();
