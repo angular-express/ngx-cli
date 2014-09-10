@@ -100,7 +100,7 @@ program
   .description("Initialize a new Angular Express project in path (default path: public/components)")
   .action(function (component, path, program) {
 
-    var componentPath = nodePath.resolve(process.cwd(), path || "public/components");
+    var componentPath = nodePath.resolve(process.cwd(), path || ("public/components/" + component));
     var repo = component;
 
     cleanUp();
