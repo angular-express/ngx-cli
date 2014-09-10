@@ -1,58 +1,105 @@
-![AngularJS Express](http://i.imgur.com/nTj9QgN.png)
+[![AngularJS Express](http://i.imgur.com/nTj9QgN.png)](https://github.com/angular-express/angular-express)
 
-## Quick Start
+Command line tool for [AngularJS Express](https://github.com/angular-express/angular-express).
 
-The quickest way to initialize a new AngularJS Express application is to use the `ngx` executable as shown below:
-
-Install the AngularJS Express CLI tool:
+## Installation
 
 ```bash
 $ npm install -g ngx-cli
 ```
 
-Initialize a new application:
+## ngx init
+
+To initialize the [default boilerplate](https://github.com/ngx-boilerplates/default) from [ngx-boilerplates](https://github.com/ngx-boilerplates).
 
 ```bash
 $ ngx init
 ```
 
-By default the [ngx-boilerplates/default](https://github.com/ngx-boilerplates/default) is installed.
-
-To install an alternative boilerplate:
+To initialize a different boilerplate from [ngx-boilerplates](https://github.com/ngx-boilerplates):
 
 ```bash
-$ ngx init -b github-username/repo
+$ ngx init -b <boilerplate-name>
 ```
 
-Once you have installed an application boilerplate, you can add components:
+To initialize a custom boilerplate:
 
 ```bash
-# Add a component to handle AngularJS exceptions
+$ ngx init -b <github-username/github-repository-name>
+```
+
+So:
+
+```bash
+$ ngx init
+```
+
+is the same as:
+
+```bash
+$ ngx init -b default
+```
+
+is the same as:
+
+```bash
+$ ngx init -b ngx-boilerplates/default
+```
+
+Visit [ngx-boilerplates](https://github.com/ngx-boilerplates) to view the available boilerplates.
+
+## ngx install
+
+To install components from [ngx-components](https://github.com/ngx-components):
+
+```bash
+# Install AngularJS exception handler component
 $ ngx install angular-exception-handler
 
-# Add a component with bootstrap compatible markup for a header with a navbar
+# Install Bootstrap header component
 $ ngx install bootstrap-header
 ```
 
-This will automatically install the components in the `public/components` directory:
+Components are automatically installed in the `public/components` directory:
 
 ```bash
 /public/components/angular-exception-handler
 /public/components/bootstrap-header
 ```
 
-If you want to install a component in a different directory, just add an additional argument:
+To install a component in a different directory, just add an additional argument:
 
 ```bash
-# Install bootstrap-header component as header component
+# Install Bootstrap header component in header directory
 $ ngx install bootstrap-header header
 ```
 
-will be installed in:
+will install the Bootstrap header component in:
 
 ```bash
 /public/components/header
 ```
+
+Specify a GitHub repository to install a custom component:
+
+```bash
+# Install a component from any GitHub repository
+$ ngx install <github-username/github-repository-name>
+```
+
+If no `github-username` is specified, it defaults to `ngx-components`, so:
+
+```bash
+$ ngx install angular-exception-handler
+```
+
+is the same as:
+
+```bash
+$ ngx install ngx-components/angular-exception-handler
+```
+
+Visit [ngx-components](https://github.com/ngx-components) to view the available components.
 
 ### License
 [MIT](LICENSE)
