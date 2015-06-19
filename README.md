@@ -60,24 +60,18 @@ $ ngx install angular-exception-handler
 $ ngx install bootstrap-header
 ```
 
-Components are automatically installed in the `public/components` directory:
+Components are automatically installed in the `src/components` directory:
 
 ```bash
-/public/components/angular-exception-handler
-/public/components/bootstrap-header
+# To install boostrap-header in src/components/bootstrap-header
+$ ngx install bootstrap-header
 ```
 
-To install a component in a different directory, just add an additional argument:
+To install a component in a different directory, just specify the destination as an additional argument:
 
 ```bash
-# Install Bootstrap header component in header directory
-$ ngx install bootstrap-header header
-```
-
-will install the Bootstrap header component in:
-
-```bash
-/public/components/header
+# To install boostrap-header in src/components/header
+$ ngx install bootstrap-header src/components/header
 ```
 
 Specify a GitHub repository to install a custom component:
@@ -103,3 +97,14 @@ Visit [ngx-components](https://github.com/ngx-components) to view the available 
 
 ### License
 [MIT](LICENSE)
+
+### Change log
+
+### v1.0.0
+
+- Added support for installing components in `src/components` by default
+- Updated documentation
+
+### v0.1.0
+
+- Initial version
