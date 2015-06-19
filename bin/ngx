@@ -96,12 +96,13 @@ program
  */
 program
   .command("install <component> [path]")
-  .usage("initializes a new Angular Express component in path (default path: public/components).\n  See available components at https://github.com/ngx-components")
+  .usage("initializes a new Angular Express component in path (default path: src/components).\n  See available components at https://github.com/ngx-components")
   .option("-f, --force", "overwrite existing file(s)")
-  .description("Initialize a new Angular Express project in path (default path: public/components)")
+  .description("Initialize a new Angular Express project in path (default path: src/components)")
   .action(function (component, path, program) {
 
     var componentPath,
+        repoParts
         repo = component;
 
     cleanUp();
@@ -110,10 +111,10 @@ program
     repo.match(/\//) || (repo = "ngx-components/" + repo);
 
     if(path){
-      componentPath = nodePath.resolve(process.cwd(), "public/components/", path);
+      componentPath = nodePath.resolve(process.cwd(), path);
     }else{
       var repoParts = repo.split('/');
-      componentPath = nodePath.resolve(process.cwd(), "public/components/", repoParts[repoParts.length -1]);
+      componentPath = nodePath.resolve(process.cwd(), "src/components", repoParts[repoParts.length -1]);
     }
 
     var done = function () {
