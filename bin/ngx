@@ -6,6 +6,7 @@ var program = require("commander");
 var fse = require("fs-extra");
 var downloadRepo = require("download-github-repo");
 var util = require("util");
+var harp = require('harp');
 
 
 // Read package.json
