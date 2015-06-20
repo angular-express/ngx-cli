@@ -200,18 +200,18 @@ program
 
       var done = function () {
         cleanUp();
-        console.log("Compiled to %s", outputPath)
+        console.log("Successfully compiled to %s", outputPath)
       }
 
-      console.log("  Compiling, please wait...");
-      console.log("    source: %s", projectPath);
-      console.log("    destination: %s", outputPath);
+      console.log("Compiling, please wait...");
+      console.log("  source: %s", projectPath);
+      console.log("  destination: %s", outputPath);
 
       harp.compile(projectPath, outputPath, function(errors, output){
         if(errors) {
           console.log(JSON.stringify(errors, null, 2))
           if(!program.force){
-            abort('Compilation error');
+            abort('Compilation failed');
           }
         }
       });
@@ -223,9 +223,9 @@ program
         if (err) {
           return done();
         }
-        console.log("  Copying _jspm_packages");
-        console.log("    source: %s", srcPackages);
-        console.log("    destination: %s", destPackages);
+        console.log("Copying _jspm_packages");
+        console.log("  source: %s", srcPackages);
+        console.log("  destination: %s", destPackages);
         return done()
       });
 
