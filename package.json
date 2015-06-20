@@ -1,12 +1,13 @@
 {
   "name": "ngx-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Angular Express CLI",
   "author": "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>",
   "keywords": [
     "angular",
     "angularjs",
     "express",
+    "angular express",
     "harp",
     "harpjs",
     "boilerplate",
