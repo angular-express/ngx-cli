@@ -24,7 +24,7 @@ program
  */
 program
   .command("init [target-directory]")
-  .usage("initializes a new Angular Express project in target-directory (default: current directory).\n  See available boilerplates at https://github.com/ngx-boilerplates")
+  .usage("initialize a boilerplate to kickstart a project in target-directory (default: current directory).\n  See available boilerplates at https://github.com/ngx-boilerplates")
   .option("-b, --boilerplate <boilerplate>", "boilerplate to initialize", "ngx-boilerplates/default")
   .option("-f, --force", "overwrite existing file(s)")
   .description("Initialize a boilerplate to kickstart a project")
@@ -94,7 +94,7 @@ program
  */
 program
   .command("install <component> [target-directory]")
-  .usage("initializes a new Angular Express component in path (default path: src/components).\n  See available components at https://github.com/ngx-components")
+  .usage("install a component in target directory (default: src/components).\n  See available components at https://github.com/ngx-components")
   .option("-f, --force", "overwrite existing file(s)")
   .description("Install a component in an existing project")
   .action(function (component, path, program) {
