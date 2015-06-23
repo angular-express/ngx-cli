@@ -18,16 +18,22 @@ $ ngx init [options] [target-directory]
 
 #### Options
 
-##### `-b, --boilerplate <github-username>/<github-repository-name>`
+##### `-b, --boilerplate <boilerplate>`
 
 Boilerplate to initialize.
+ 
+Format: `[<github-username>/]<github-repository-name>`.
 
 - if no boilerplate is specified, `ngx-boilerplates/default` is used
 - if only a `<github-repository-name>` is specified, `ngx-boilerplates/<github-repository-name>` is used
 
 ##### `-f, --force`
 
-Overwrite existing files.
+Overwrite existing file(s).
+
+##### `-h, --help`
+
+Output usage information.
 
 #### Arguments
 
@@ -60,14 +66,26 @@ Visit [ngx-boilerplates](https://github.com/ngx-boilerplates) for a list of offi
 Install a component in an existing project:
 
 ```bash
-$ ngx install [<github-username>/]<github-repository-name> [target-directory]
+$ ngx install [options] <component> [target-directory]
 ```
+
+#### Options
+
+##### `-f, --force`
+
+Overwrite existing file(s).
+
+##### `-h, --help`
+
+Output usage information.
 
 #### Arguments
 
-##### `[<github-username>/]<github-repository-name>`
+##### `<component>`
 
 Component to install.
+ 
+Format: `[<github-username>/]<github-repository-name>`
 
 - if only a `<github-repository-name>` is specified, `ngx-components/<github-repository-name>` is used
 
@@ -86,8 +104,11 @@ $ ngx install angular-ui-router-component
 # Install ngx-components/angular-ui-router-component in src/components/homepage
 $ ngx install angular-ui-router-component src/components/homepage
 
-# Install github-username/component-name in src/components/component-name
-$ ngx install github-username/component-name
+# Install github-username/foo in src/components/foo
+$ ngx install github-username/foo
+
+# Install github-username/foo in src/components/bar
+$ ngx install github-username/foo in src/components/bar
 ```
 
 Visit [ngx-components](https://github.com/ngx-components) for a list of official components.
