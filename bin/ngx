@@ -23,11 +23,11 @@ program
  * Initialize a new project boilerplate
  */
 program
-  .command("init [path]")
-  .usage("initializes a new Angular Express project in path(default path: current directory).\n  See available boilerplates at https://github.com/ngx-boilerplates")
-  .option("-b, --boilerplate <github-username/repo>", "use a github repo as a boilerplate", "ngx-boilerplates/default")
+  .command("init [target-directory]")
+  .usage("initializes a new Angular Express project in target-directory (default: current directory).\n  See available boilerplates at https://github.com/ngx-boilerplates")
+  .option("-b, --boilerplate <boilerplate>", "boilerplate to initialize", "ngx-boilerplates/default")
   .option("-f, --force", "overwrite existing file(s)")
-  .description("Initialize a new Angular Express project in path (default path: current directory)")
+  .description("Initialize a boilerplate to kickstart a project")
   .action(function (path, program) {
 
     var projectPath = nodePath.resolve(process.cwd(), path || "");
@@ -93,10 +93,10 @@ program
  * Install a new component
  */
 program
-  .command("install <component> [path]")
+  .command("install <component> [target-directory]")
   .usage("initializes a new Angular Express component in path (default path: src/components).\n  See available components at https://github.com/ngx-components")
   .option("-f, --force", "overwrite existing file(s)")
-  .description("Initialize a new Angular Express component in path (default path: src/components)")
+  .description("Install a component in an existing project")
   .action(function (component, path, program) {
 
     var componentPath,
@@ -167,7 +167,7 @@ program
  * Help text
  */
 program.on("--help", function () {
-  console.log("  Use 'ngx <command> --help' to get more information or visit http://angular-express.com/ to learn more.")
+  console.log("  Use 'ngx <command> --help' to get more information or visit http://www.angular-express.com/ to learn more.")
   console.log('')
 });
 
