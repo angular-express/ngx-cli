@@ -8,7 +8,9 @@ Command line tool for [AngularJS Express](http://www.angular-express.com).
 $ npm install -g ngx-cli
 ```
 
-## ngx init
+## Commands
+
+### ngx init
 
 Initialize a boilerplate to kickstart a project:
 
@@ -43,7 +45,7 @@ Where to initialize the boilerplate.
 
 - if no `target-directory` is specified, the current directory is used
 
-#### Examples:
+#### Examples
 
 ```bash
 # Initialize ngx-boilerplates/default in current directory
@@ -61,7 +63,7 @@ $ ngx init -b github-username/github-repository-name
 
 Visit [ngx-boilerplates](https://github.com/ngx-boilerplates) for a list of official boilerplates.
 
-## ngx install
+### ngx install
 
 Install a component in an existing project:
 
@@ -95,7 +97,7 @@ Where to install the component.
 
 - if no `target-directory` is specified, `src/components` is used
 
-#### Examples:
+#### Examples
 
 ```bash
 # Install ngx-components/angular-ui-router-component in src/components/angular-ui-router-component
