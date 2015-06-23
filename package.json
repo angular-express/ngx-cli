@@ -1,6 +1,6 @@
 {
   "name": "ngx-cli",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Angular Express CLI",
   "author": "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>",
   "keywords": [
@@ -14,7 +14,7 @@
     "component driven development",
     "web component"
   ],
-  "homepage": "http://angular-express.com",
+  "homepage": "http://www.angular-express.com",
   "bugs": "http://github.com/angular-express/ngx-cli/issues",
   "main": "./bin/ngx",
   "repository": {
