@@ -23,7 +23,7 @@ $ ngx init [options] [target-directory]
 ##### `-b, --boilerplate <boilerplate>`
 
 Boilerplate to initialize.
- 
+
 Format: `[<github-username>/]<github-repository-name>`.
 
 - if no boilerplate is specified, `ngx-boilerplates/default` is used
@@ -86,7 +86,7 @@ Output usage information.
 ##### `<component>`
 
 Component to install.
- 
+
 Format: `[<github-username>/]<github-repository-name>`
 
 - if only a `<github-repository-name>` is specified, `ngx-components/<github-repository-name>` is used
@@ -119,6 +119,10 @@ Visit [ngx-components](https://github.com/ngx-components) for a list of official
 [MIT](LICENSE)
 
 ### Change log
+
+### v1.5.0
+
+- Updated dependencies to work nicely with Node v4.
 
 ### v1.4.0
 
