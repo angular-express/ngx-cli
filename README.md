@@ -120,14 +120,17 @@ Visit [ngx-components](https://github.com/ngx-components) for a list of official
 
 ### Change log
 
-### v1.5.0
+### v1.6.0
 
 - Updated dependencies to work nicely with Node v4.
+
+### v1.5.0
+
+- Removed compile command
 
 ### v1.4.0
 
 - Removed Harp dependency
-- Removed compile command
 - Updated documentation
 
 ### v1.2.0
