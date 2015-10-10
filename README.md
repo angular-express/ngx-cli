@@ -1,6 +1,6 @@
-[![AngularJS Express](http://i.imgur.com/nTj9QgN.png)](https://github.com/angular-express/angular-express)
+![angular-express-header](https://cloud.githubusercontent.com/assets/1859381/8266502/d94e93ce-1731-11e5-9b9d-9b9e58c5369f.png)
 
-Command line tool for [AngularJS Express](https://github.com/angular-express/angular-express).
+Command line tool for [AngularJS Express](http://www.angular-express.com).
 
 ## Installation
 
@@ -8,97 +8,128 @@ Command line tool for [AngularJS Express](https://github.com/angular-express/ang
 $ npm install -g ngx-cli
 ```
 
-## ngx init
+## Commands
 
-To initialize the [default boilerplate](https://github.com/ngx-boilerplates/default) from [ngx-boilerplates](https://github.com/ngx-boilerplates).
+### ngx init
+
+Initialize a boilerplate to kickstart a project:
 
 ```bash
+$ ngx init [options] [target-directory]
+```
+
+#### Options
+
+##### `-b, --boilerplate <boilerplate>`
+
+Boilerplate to initialize.
+ 
+Format: `[<github-username>/]<github-repository-name>`.
+
+- if no boilerplate is specified, `ngx-boilerplates/default` is used
+- if only a `<github-repository-name>` is specified, `ngx-boilerplates/<github-repository-name>` is used
+
+##### `-f, --force`
+
+Overwrite existing file(s).
+
+##### `-h, --help`
+
+Output usage information.
+
+#### Arguments
+
+##### `<target-directory>`
+
+Where to initialize the boilerplate.
+
+- if no `target-directory` is specified, the current directory is used
+
+#### Examples
+
+```bash
+# Initialize ngx-boilerplates/default in current directory
 $ ngx init
-```
 
-To initialize a different boilerplate from [ngx-boilerplates](https://github.com/ngx-boilerplates):
+# Initialize ngx-boilerplates/default in directory new-project
+$ ngx init new-project
 
-```bash
-$ ngx init -b <boilerplate-name>
-```
-
-To initialize a custom boilerplate:
-
-```bash
-$ ngx init -b <github-username/github-repository-name>
-```
-
-So:
-
-```bash
-$ ngx init
-```
-
-is the same as:
-
-```bash
+# Initialize ngx-boilerplates/default in current directory
 $ ngx init -b default
+
+# Initialize github-username/github-repository-name in current directory
+$ ngx init -b github-username/github-repository-name
 ```
 
-is the same as:
+Visit [ngx-boilerplates](https://github.com/ngx-boilerplates) for a list of official boilerplates.
+
+### ngx install
+
+Install a component in an existing project:
 
 ```bash
-$ ngx init -b ngx-boilerplates/default
+$ ngx install [options] <component> [target-directory]
 ```
 
-Visit [ngx-boilerplates](https://github.com/ngx-boilerplates) to view the available boilerplates.
+#### Options
 
-## ngx install
+##### `-f, --force`
 
-To install components from [ngx-components](https://github.com/ngx-components):
+Overwrite existing file(s).
+
+##### `-h, --help`
+
+Output usage information.
+
+#### Arguments
+
+##### `<component>`
+
+Component to install.
+ 
+Format: `[<github-username>/]<github-repository-name>`
+
+- if only a `<github-repository-name>` is specified, `ngx-components/<github-repository-name>` is used
+
+##### `<target-directory>`
+
+Where to install the component.
+
+- if no `target-directory` is specified, `src/components` is used
+
+#### Examples
 
 ```bash
-# Install AngularJS exception handler component
-$ ngx install angular-exception-handler
+# Install ngx-components/angular-ui-router-component in src/components/angular-ui-router-component
+$ ngx install angular-ui-router-component
 
-# Install Bootstrap header component
-$ ngx install bootstrap-header
+# Install ngx-components/angular-ui-router-component in src/components/homepage
+$ ngx install angular-ui-router-component src/components/homepage
+
+# Install github-username/foo in src/components/foo
+$ ngx install github-username/foo
+
+# Install github-username/foo in src/components/bar
+$ ngx install github-username/foo in src/components/bar
 ```
 
-Components are automatically installed in the `src/components` directory:
-
-```bash
-# To install boostrap-header in src/components/bootstrap-header
-$ ngx install bootstrap-header
-```
-
-To install a component in a different directory, just specify the destination as an additional argument:
-
-```bash
-# To install boostrap-header in src/components/header
-$ ngx install bootstrap-header src/components/header
-```
-
-Specify a GitHub repository to install a custom component:
-
-```bash
-# Install a component from any GitHub repository
-$ ngx install <github-username/github-repository-name>
-```
-
-If no `github-username` is specified, it defaults to `ngx-components`, so:
-
-```bash
-$ ngx install angular-exception-handler
-```
-
-is the same as:
-
-```bash
-$ ngx install ngx-components/angular-exception-handler
-```
-
-Visit [ngx-components](https://github.com/ngx-components) to view the available components.
+Visit [ngx-components](https://github.com/ngx-components) for a list of official components.
 
 ### License
 [MIT](LICENSE)
 
 ### Change log
+
+### v1.4.0
+
+- Removed Harp dependency
+- Removed compile command
+- Updated documentation
+
+### v1.2.0
+
+- Added compile command
+- Updated documentation
 
 ### v1.0.0
 

@@ -1,6 +1,6 @@
 {
   "name": "ngx-cli",
-  "version": "1.3.0",
+  "version": "1.8.0",
   "description": "Angular Express CLI",
   "author": "Jurgen Van de Moere <jurgen.van.de.moere@gmail.com>",
   "keywords": [
@@ -8,18 +8,13 @@
     "angularjs",
     "express",
     "angular express",
-    "harp",
-    "harpjs",
     "boilerplate",
-    "sass",
-    "less",
-    "stylus",
-    "markdown",
-    "jade",
-    "ejs",
-    "coffeescript"
+    "component",
+    "component driven",
+    "component driven development",
+    "web component"
   ],
-  "homepage": "http://angular-express.com",
+  "homepage": "http://www.angular-express.com",
   "bugs": "http://github.com/angular-express/ngx-cli/issues",
   "main": "./bin/ngx",
   "repository": {
