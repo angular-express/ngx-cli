@@ -29,8 +29,7 @@
   "dependencies": {
     "commander": "^2.8.1",
     "download-github-repo": "^0.1.3",
-    "fs-extra": "^0.11.1",
-    "harp": "^0.17.0"
+    "fs-extra": "^0.11.1"
   },
   "license": "MIT",
   "preferGlobal": true,

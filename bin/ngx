@@ -6,8 +6,6 @@ var program = require("commander");
 var fse = require("fs-extra");
 var downloadRepo = require("download-github-repo");
 var util = require("util");
-var harp = require('harp');
-
 
 // Read package.json
 var pkg = require("../package.json");
@@ -15,10 +13,8 @@ var pkg = require("../package.json");
 // Define temporary path
 var tmpPath = nodePath.resolve(process.cwd(), ".ngx-boilerplates");
 
-
 program
   .version(pkg.version);
-
 
 /**
  * Init command
@@ -164,73 +160,6 @@ program
       });
     });
   });
-
-/**
- * Compile to static
- */
-program
-    .command("compile [projectPath] [outputPath]")
-    .option("-o, --output <path>", "Specify the output directory for compiled assets (relative to project path)")
-    .option("-f, --force", "do not stop on errors")
-    .usage("compile your project files to static assets (HTML, JS and CSS). \n  Use this command if you want to host your application without using the Harp web server.")
-    .description("Compile project to static assets (HTML, JS and CSS)")
-    .action(function(projectPath, outputPath, program){
-
-      if(!program){
-        program    = outputPath
-        outputPath = null
-      }
-
-      projectPath = nodePath.resolve(process.cwd(), projectPath || "")
-
-      /**
-       * We deal with output path 3 different ways
-       *
-       *  1. second argument (relative to directory called in)
-       *  2. `--output` argument (relative to project root)
-       *  3. implicitly projectPath + "/www"
-       *
-       */
-
-      if(outputPath){
-        outputPath = nodePath.resolve(process.cwd(), (outputPath || program.output || ''))
-      }else{
-        outputPath = nodePath.resolve(projectPath, (program.output || "www"))
-      }
-
-      var done = function () {
-        cleanUp();
-        console.log("Successfully compiled to %s", outputPath)
-      }
-
-      console.log("Compiling, please wait...");
-      console.log("  source: %s", projectPath);
-      console.log("  destination: %s", outputPath);
-
-      harp.compile(projectPath, outputPath, function(errors, output){
-        if(errors) {
-          console.log(JSON.stringify(errors, null, 2))
-          if(!program.force){
-            abort('Compilation failed');
-          }
-        }
-      });
-
-      var srcPackages = nodePath.resolve(projectPath, '_jspm_packages');
-      var destPackages = nodePath.resolve(outputPath, '_jspm_packages');
-
-      fse.copy(srcPackages, destPackages, function (err) {
-        if (err) {
-          return done();
-        }
-        console.log("Copying _jspm_packages");
-        console.log("  source: %s", srcPackages);
-        console.log("  destination: %s", destPackages);
-        return done()
-      });
-
-    });
-
 
 /**
  * Help text
