@@ -120,7 +120,7 @@ Visit [ngx-components](https://github.com/ngx-components) for a list of official
 
 ### Change log
 
-### v1.6.0
+### v1.9.0
 
 - Updated dependencies to work nicely with Node v4.
 
